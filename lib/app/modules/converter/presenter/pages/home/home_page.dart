@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../commons/adapters/navigation_adapter.dart';
 import 'home_controller.dart';
 import 'widgets/custom_text_field_widget.dart';
 
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           CustomTextFieldWidget(
             key: const Key('txtUsd'),
             labelText: 'Dolar',
-            prefix: 'USE',
+            prefix: 'USD',
             controller: controller.txtDolars,
             onChanged: controller.onDolarChanged,
           ),
@@ -53,6 +54,12 @@ class _HomePageState extends State<HomePage> {
             },
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.refresh),
+        onPressed: () {
+          context.pushNamed('/home/created');
+        },
       ),
     );
   }

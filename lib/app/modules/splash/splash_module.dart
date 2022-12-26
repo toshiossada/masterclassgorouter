@@ -1,9 +1,20 @@
-import 'package:get_it/get_it.dart';
+import 'package:aula1/app/modules/splash/presenter/pages/splash/splash_controller.dart';
+import 'package:aula1/app/modules/splash/presenter/pages/splash/splash_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import 'presenter/pages/splash/splash_controller.dart';
+class SplashModule extends Module {
+  @override
+  List<Bind> get binds => [
+        Bind.factory((i) => SplashController()),
+      ];
 
-final getIt = GetIt.instance;
-
-void setup() {
-  getIt.registerFactory(() => SplashController());
+  @override
+  List<ModularRoute> get routes => [
+        ChildRoute(
+          '/',
+          child: (context, args) => SplashPage(
+            controller: Modular.get<SplashController>(),
+          ),
+        )
+      ];
 }

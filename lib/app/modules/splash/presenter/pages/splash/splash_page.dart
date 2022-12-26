@@ -1,6 +1,7 @@
 import 'package:aula1/app/modules/splash/presenter/pages/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../../../../../../commons/adapters/navigation_adapter.dart';
 
 class SplashPage extends StatefulWidget {
   final SplashController controller;
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     widget.controller.init().then((value) {
-      context.go(Uri(path: '/home').toString());
+      context.navigate('/home');
     });
   }
 

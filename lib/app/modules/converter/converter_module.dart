@@ -1,27 +1,35 @@
-import 'package:aula1/app/modules/converter/domain/usecases/convert_currency.dart';
-import 'package:aula1/app/modules/converter/infra/datasources/currency_datasource.dart';
-import 'package:aula1/app/modules/converter/infra/repositories/currency_repository.dart';
-import 'package:aula1/app/modules/converter/presenter/pages/home/home_controller.dart';
-import 'package:aula1/app/modules/converter/presenter/pages/home/home_store.dart';
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'domain/repositories/currency_repository_interface.dart';
+import 'domain/usecases/convert_currency.dart';
+import 'infra/datasources/currency_datasource.dart';
+import 'infra/repositories/currency_repository.dart';
 import 'infra/repositories/datasources/currency_datasource_interface.dart';
+import 'presenter/pages/author/author_page.dart.dart';
+import 'presenter/pages/home/home_controller.dart';
+import 'presenter/pages/home/home_page.dart';
+import 'presenter/pages/home/home_store.dart';
 
-final getIt = GetIt.instance;
+class ConverterModule extends Module {
+  @override
+  List<Bind> get binds => [
+        Bind.lazySingleton((i) => HomeStore()),
+        Bind.factory<ICurrencyDataSource>(
+            (i) => CurrencyDataSource(client: i())),
+        Bind.factory<ICurrencyRepository>(
+            (i) => CurrencyRepository(currencyDatasouce: i())),
+        Bind.factory<ConvertCurrency>(
+            (i) => ConvertCurrency(currencyRepository: i())),
+        Bind.factory(
+          (i) => HomeController(convertCurrency: i(), store: i()),
+        ),
+      ];
 
-void setup() {
-  getIt.registerFactory(() => HomeStore());
-  getIt.registerFactory<ICurrencyDataSource>(
-      () => CurrencyDataSource(client: getIt.get<Dio>()));
-  getIt.registerFactory<ICurrencyRepository>(() =>
-      CurrencyRepository(currencyDatasouce: getIt.get<ICurrencyDataSource>()));
-  getIt.registerFactory<ConvertCurrency>(() =>
-      ConvertCurrency(currencyRepository: getIt.get<ICurrencyRepository>()));
-  getIt.registerFactory(
-    () => HomeController(
-        convertCurrency: getIt.get<ConvertCurrency>(),
-        store: getIt.get<HomeStore>()),
-  );
+  @override
+  List<ModularRoute> get routes => [
+        ChildRoute('/',
+            child: (context, args) =>
+                HomePage(controller: Modular.get<HomeController>())),
+        ChildRoute('/created', child: (context, args) => const AuthorPage()),
+      ];
 }

@@ -1,14 +1,19 @@
 import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import 'modules/converter/converter_module.dart' as converter;
-import 'modules/splash/splash_module.dart' as splash;
+import 'modules/converter/converter_module.dart';
+import 'modules/splash/splash_module.dart';
 
-final getIt = GetIt.instance;
+class AppModule extends Module {
+  @override
+  List<Bind> get binds => [
+        Bind.factory(
+            (i) => Dio(BaseOptions(baseUrl: 'https://api.hgbrasil.com/'))),
+      ];
 
-void setup() {
-  getIt.registerFactory(
-      () => Dio(BaseOptions(baseUrl: 'https://api.hgbrasil.com/')));
-  splash.setup();
-  converter.setup();
+  @override
+  List<ModularRoute> get routes => [
+        ModuleRoute('/', module: SplashModule()),
+        ModuleRoute('/home', module: ConverterModule()),
+      ];
 }
