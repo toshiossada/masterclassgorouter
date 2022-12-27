@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../../../../commons/adapters/navigation_adapter.dart';
 import 'home_controller.dart';
@@ -20,28 +21,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Conversor')),
+      appBar: AppBar(title: Text('home_page_title'.i18n())),
       body: Column(
         children: [
           const Icon(Icons.monetization_on),
           CustomTextFieldWidget(
             key: const Key('txtBrl'),
-            labelText: 'Real',
-            prefix: 'R\$',
+            labelText: 'brl_label'.i18n(),
+            prefix: 'brl_prefix'.i18n(),
             controller: controller.txtReais,
             onChanged: controller.onRealChanged,
           ),
           CustomTextFieldWidget(
             key: const Key('txtUsd'),
-            labelText: 'Dolar',
-            prefix: 'USD',
+            labelText: 'us_label'.i18n(),
+            prefix: 'us_prefix'.i18n(),
             controller: controller.txtDolars,
             onChanged: controller.onDolarChanged,
           ),
           CustomTextFieldWidget(
             key: const Key('txtEur'),
-            labelText: 'EURO',
-            prefix: 'EUR',
+            labelText: 'eur_label'.i18n(),
+            prefix: 'eur_prefix'.i18n(),
             controller: controller.txtEuros,
             onChanged: controller.onEuroChanged,
           ),
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.refresh),
         onPressed: () {
-          context.pushNamed('/home/created');
+          context.pushNamed('created');
         },
       ),
     );

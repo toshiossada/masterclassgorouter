@@ -1,0 +1,11 @@
+{
+    "home_page_title": "Currency Converter",
+    "brl_label": "BRL",
+    "brl_prefix": "BRL",
+    "us_label": "USD",
+    "us_prefix": "USD",
+    "eur_label": "EUR",
+    "eur_prefix": "EUR",
+    "created_page_title": "Created",
+    "created_by_label": "Created By"
+}

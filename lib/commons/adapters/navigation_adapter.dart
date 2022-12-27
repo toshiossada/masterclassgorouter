@@ -17,4 +17,12 @@ extension Navigation on BuildContext {
   void pop() {
     Modular.to.pop();
   }
+
+  void pushNamedAndRemoveUntil(String route, String until) {
+    Modular.to.pushNamedAndRemoveUntil(route, ModalRoute.withName(until));
+  }
+
+  void popUntil(String route, String until) {
+    Modular.to.popUntil(ModalRoute.withName(until));
+  }
 }

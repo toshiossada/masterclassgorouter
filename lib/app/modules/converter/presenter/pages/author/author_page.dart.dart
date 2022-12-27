@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class AuthorPage extends StatefulWidget {
   const AuthorPage({super.key}) : super();
@@ -12,15 +13,15 @@ class _AuthorPageState extends State<AuthorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Conversor de Moedas'),
+        title: Text('created_page_title'.i18n()),
       ),
       body: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: const [
+          children: [
             Center(
-              child: Text('Criado na MasterClass'),
+              child: Text('${'created_by_label'.i18n()} Toshi Ossada'),
             ),
           ],
         ),
