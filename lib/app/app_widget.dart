@@ -12,6 +12,7 @@ class AppWidget extends StatelessWidget {
       'assets/lang/',
     ];
 
+    Modular.setObservers([CustomRouteObserver()]);
     return MaterialApp.router(
       localizationsDelegates: [
         // delegate from flutter_localization
@@ -41,5 +42,20 @@ class AppWidget extends StatelessWidget {
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
     );
+  }
+}
+
+class CustomRouteObserver extends RouteObserver<PageRoute<dynamic>> {
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPush(route, previousRoute);
+
+    //save Stack
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPop(route, previousRoute);
   }
 }

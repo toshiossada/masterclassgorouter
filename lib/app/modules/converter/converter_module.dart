@@ -13,16 +13,17 @@ import 'presenter/pages/home/home_store.dart';
 class ConverterModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.lazySingleton((i) => HomeStore()),
+        Bind.lazySingleton<HomeStore>(
+          (i) => HomeStore(),
+          onDispose: (store) => store.dispose(),
+        ),
         Bind.factory<ICurrencyDataSource>(
             (i) => CurrencyDataSource(client: i())),
         Bind.factory<ICurrencyRepository>(
             (i) => CurrencyRepository(currencyDatasouce: i())),
         Bind.factory<ConvertCurrency>(
             (i) => ConvertCurrency(currencyRepository: i())),
-        Bind.factory(
-          (i) => HomeController(convertCurrency: i(), store: i()),
-        ),
+        Bind.factory((i) => HomeController(convertCurrency: i(), store: i())),
       ];
 
   @override
